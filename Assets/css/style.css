@@ -1,0 +1,40 @@
+*{
+    box-sizing: border-box
+}
+
+main{
+    margin: auto;
+    width: 50%;
+    background-color: lightgreen;
+    padding: 20px;
+}
+
+h1{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
+
+h3{
+    text-align: center;
+}
+
+p{
+    text-align: center;
+}
+
+span{
+    text-align: center;
+}
+
+#directions{
+    border: 2px dashed black;
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
+#firstNode{
+    text-align: center;
+}
