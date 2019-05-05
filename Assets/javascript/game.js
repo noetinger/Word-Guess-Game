@@ -5,85 +5,85 @@ let livesLeft =document.getElementById("number-of-lives")
 let wins = document.getElementById("number-of-wins")
 
 var wordBank =["yosemite","glacier","yellowstone","acadia","zion","arches"];
-var guessesRemaining = [8];
+var guessesRemaining = 8;
 var guessedLetters = [];
 var numberOfWins = [0];
 
-var word = wordBank[Math.floor(Math.random() * wordBank.length)];
+//Reset Button
+var resetButton = document.createElement('button');
+    resetButton.id = 'resetBtn';
+    resetButton.innerHTML = "WHY IS THE FUNCTIONAL BUTTON OVER HERE?"
+    document.body.appendChild(resetButton);
+    resetButton.className = "#button"; //This doesn't seem to be working. WTF?
 
-function resetGame (){
-    guessedLetters = [];
-    guessesRemaining = [8];
-};
+resetButton.onclick = function resetGame (){
+    console.log("Game reset test! Yeet!")
+}
+
+//Random word
+var word = wordBank[Math.floor(Math.random() * wordBank.length)];
 
 //# of "-'s" in the word
 var answerArray = word.split("")
     for (var i = 0; i < word.length; i++){
-        let pNode = document.createElement('c')
-        pNode.innerHTML = ' - '
-        firstNode.appendChild(pNode)
+        let answerArrayNode = document.createElement('p')
+        answerArrayNode.innerHTML = ' - '
+        firstNode.appendChild(answerArrayNode)
     };
 
 //Remaining Letters to be guessed
 var remainingLetters = answerArray.length;
 
 //Captures keyboard input
-document.onkeyup = function(event) {
-    //Guess a letter
-    var userGuess = event.key;
-    if(guessesRemaining > 0 && answerArray.includes(userGuess) && guessedLetters.includes(userGuess) === false){
-        for (var j = 0; j < word.length; j++){
-            //If they chose a correct letter
-            if (word[j] === userGuess) {
-                //replace the "-" with the correct letter
-                firstNode.childNodes[j].innerHTML = userGuess;
-                //subtract 1 from remaining letters and guesses remaining
-                remainingLetters--;
+function gamePlay(){
+    document.onkeyup = function(event) {
+        //Guess a letter
+        var userGuess = event.key.toLowerCase();
+        if(guessesRemaining > 0 && answerArray.includes(userGuess) && guessedLetters.includes(userGuess) === false){
+            for (var j = 0; j < word.length; j++){
+                //If they chose a correct letter
+                if (word[j] === userGuess) {
+                    //replace the "-" with the correct letter
+                    firstNode.childNodes[j].innerHTML = userGuess;
+                    //subtract 1 from remaining letters and guesses remaining
+                    remainingLetters--;
+                }
+            }
+        }
+        else {
+            if (guessedLetters.includes(userGuess) === false) {
+            guessesRemaining--;
+            console.log("lose guess test");
             }
         }
         guessedLetters.push(userGuess)
-    }
-    else {
-        if (guessedLetters.includes(userGuess) === false) {
-            guessesRemaining--;
-            guessedLetters.push(userGuess)
-        }
-    }
-    //Show guessed letters in HTML
-    let qNode = document.createElement('d')
-        qNode.innerHTML = (userGuess + ",")
-        showGuesses.appendChild(qNode);
+        //Show guessed letters in HTML
+        let showGuessesNode = document.createElement('p')
+            showGuessesNode.innerHTML = (userGuess + ",")
+            showGuesses.appendChild(showGuessesNode);
+    
 
-    //Show guesses remaining in HTML
-    let blahBlah = document.createElement('e')
-        blahBlah.innerHTML =(guessesRemaining + "...")
-        livesLeft.appendChild(blahBlah);
-
-    //Win the game
-    if (remainingLetters <= 0){
-            confirm("You won!!! Woohoo!!") &&
+        //Win the game
+        if (remainingLetters <= 0){
             // # of Wins
             (numberOfWins++)
-            let yeet = document.createElement('f')
-            yeet.innerHTML = (numberOfWins + ", ")
-            wins.appendChild(yeet);
-            resetGame
+            wins.textContent = numberOfWins;
+            confirm("You won!!! Woohoo!!");
+            console.log("win win win line 60")
         }
-    //Lose the game (Sorry, show image, reveal answer)
-    if(remainingLetters > 0 && guessesRemaining === 0){
+        //Lose the game (Sorry, show image, reveal answer)
+        else if(remainingLetters > 0 && guessesRemaining === 0){
         alert("You are a L.O.S.E.R.!")
+        }
+        //Show guesses remaining in HTML
+        livesLeft.innerHTML = `${guessesRemaining}...`
+
+        resetButton.onclick = function resetGame (){
+        console.log("Game reset! Yeet!")
+        }
     }
-};
+}
 
-
-//  Reset
-//      function resetGame (){
-//          guessesRemaining = [8];
-//          guessedLetters = [];
-//      };
+gamePlay();
 
 //THANKS FOR THE HELP CHAD!!!!
-
-//Questions: document,createElement('e') what is the purpose of the letter?
-//How do I reset everything without refreshing the page? - tried resetGame function
-//How to get guesses remaining and wins to switch numbers, not add to them.

@@ -21,6 +21,11 @@ h3{
     text-align: center;
 }
 
+button{
+    text-align: center;
+    background-color: lightblue;
+}
+
 p{
     text-align: center;
 }
